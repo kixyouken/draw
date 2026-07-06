@@ -1,0 +1,14 @@
+{
+  "name": "gesture-draw-vercel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "dev:local": "node scripts/local-dev.mjs",
+    "start": "vercel dev"
+  },
+  "devDependencies": {
+    "vercel": "^44.0.0"
+  }
+}

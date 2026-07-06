@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>隔空手势画板</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="app">
+      <header class="toolbar" aria-label="绘画工具">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span data-i18n="title">隔空手势画板</span>
+        </div>
+
+        <div class="tool-group lang-group">
+          <button id="langZhBtn" class="tool-button lang-btn" type="button">中文</button>
+          <button id="langJaBtn" class="tool-button lang-btn" type="button">日本語</button>
+        </div>
+
+        <button id="cameraButton" class="tool-button primary" type="button" data-i18n="camera_button">开启摄像头</button>
+
+        <div class="tool-group" style="gap:8px;">
+          <input id="roomInput" class="field-input" type="text" data-i18n-placeholder="room_placeholder" placeholder="房间名 (默认 lobby)">
+          <input id="nameInput" class="field-input" type="text" data-i18n-placeholder="name_placeholder" placeholder="昵称 (可选)">
+          <button id="joinRoomButton" class="tool-button" type="button" data-i18n="join_room_button">加入房间</button>
+        </div>
+
+        <div class="tool-group color-group" aria-label="颜色">
+          <button class="swatch active" type="button" data-color="#111827" style="--swatch:#111827" aria-label="黑色"></button>
+          <button class="swatch" type="button" data-color="#e11d48" style="--swatch:#e11d48" aria-label="玫红"></button>
+          <button class="swatch" type="button" data-color="#f59e0b" style="--swatch:#f59e0b" aria-label="琥珀"></button>
+          <button class="swatch" type="button" data-color="#10b981" style="--swatch:#10b981" aria-label="绿色"></button>
+          <button class="swatch" type="button" data-color="#2563eb" style="--swatch:#2563eb" aria-label="蓝色"></button>
+          <label class="color-picker">
+            <input id="customColor" type="color" value="#111827" aria-label="自定义颜色">
+          </label>
+        </div>
+
+        <div class="size-toggle" data-i18n-label="line_thickness">
+          <button class="size-option active" type="button" data-size="8" data-i18n="thin">细</button>
+          <button class="size-option" type="button" data-size="24" data-i18n="thick">粗</button>
+        </div>
+
+        <div class="tool-group actions" data-i18n-label="operations">
+          <button id="eraserButton" class="tool-button" type="button" aria-pressed="false" data-i18n="eraser">橡皮</button>
+          <button id="undoButton" class="tool-button" type="button" data-i18n="undo">撤销</button>
+          <button id="clearButton" class="tool-button danger" type="button" data-i18n="clear">清空</button>
+          <button id="saveButton" class="tool-button" type="button" data-i18n="save">保存</button>
+          <button id="generateButton" class="tool-button primary" type="button" data-i18n="ai_generate">AI 生成</button>
+        </div>
+      </header>
+
+      <section class="stage" aria-label="手势画布">
+        <canvas id="drawingCanvas"></canvas>
+        <canvas id="gestureCanvas"></canvas>
+
+        <div class="camera-preview" aria-label="摄像头预览">
+          <video id="cameraView" playsinline muted></video>
+        </div>
+
+        <div class="gesture-toolbar" aria-label="手势工具栏">
+          <div class="gesture-panel color-pad">
+            <button class="gesture-tool swatch active" type="button" data-gesture-action="color" data-color="#111827" style="--swatch:#111827" aria-label="黑色"></button>
+            <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#e11d48" style="--swatch:#e11d48" aria-label="玫红"></button>
+            <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#f59e0b" style="--swatch:#f59e0b" aria-label="琥珀"></button>
+            <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#10b981" style="--swatch:#10b981" aria-label="绿色"></button>
+            <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#2563eb" style="--swatch:#2563eb" aria-label="蓝色"></button>
+          </div>
+
+          <div class="gesture-panel">
+            <button class="gesture-tool gesture-button active" type="button" data-gesture-action="size" data-size="8" data-i18n="thin">细</button>
+            <button class="gesture-tool gesture-button" type="button" data-gesture-action="size" data-size="24" data-i18n="thick">粗</button>
+          </div>
+
+          <div class="gesture-panel">
+            <button class="gesture-tool gesture-button" type="button" data-gesture-action="eraser" data-i18n="eraser">橡皮</button>
+            <button class="gesture-tool gesture-button" type="button" data-gesture-action="undo" data-i18n="undo">撤销</button>
+            <button class="gesture-tool gesture-button danger" type="button" data-gesture-action="clear" data-i18n="clear">清空</button>
+            <button class="gesture-tool gesture-button" type="button" data-gesture-action="save" data-i18n="save">保存</button>
+          </div>
+
+          <div class="gesture-panel gesture-ai-panel">
+            <button id="gestureAiStyleButton" class="gesture-tool gesture-button compact" type="button" data-gesture-action="ai-style">风格</button>
+            <button id="gestureAiSizeButton" class="gesture-tool gesture-button compact" type="button" data-gesture-action="ai-size">尺寸</button>
+            <button id="gestureAiModelButton" class="gesture-tool gesture-button compact" type="button" data-gesture-action="ai-model">模型</button>
+            <button id="gestureAiGenerateButton" class="gesture-tool gesture-button primary" type="button" data-gesture-action="ai-generate">AI 生成</button>
+          </div>
+        </div>
+
+        <div class="hud" aria-live="polite">
+          <span id="statusDot" class="status-dot"></span>
+          <span id="statusText">先开启摄像头；食指停在工具上一会儿会自动选择，捏合画画，张开手掌拖动画布</span>
+          <div id="membersList" class="members-list"></div>
+        </div>
+
+        <aside class="ai-panel" aria-label="AI 图生图">
+          <div class="ai-panel-header">
+            <strong data-i18n="ai_panel_title">AI 图生图</strong>
+            <span id="aiStatus" class="ai-status" data-i18n="ai_idle">准备就绪</span>
+          </div>
+
+          <div class="ai-controls">
+            <select id="aiStyleSelect" class="field-input" data-i18n-label="ai_style_label" aria-label="风格">
+              <option value="children" data-i18n="style_children">儿童绘本</option>
+              <option value="watercolor" data-i18n="style_watercolor">水彩插画</option>
+              <option value="cartoon3d" data-i18n="style_cartoon3d">3D 卡通</option>
+              <option value="sticker" data-i18n="style_sticker">贴纸图标</option>
+              <option value="realistic" data-i18n="style_realistic">写实照片</option>
+            </select>
+
+            <select id="aiSizeSelect" class="field-input" data-i18n-label="ai_size_label" aria-label="尺寸">
+              <option value="1024x768">1024x768</option>
+              <option value="1024x1024">1024x1024</option>
+              <option value="768x1024">768x1024</option>
+            </select>
+
+            <select id="aiModelSelect" class="field-input" data-i18n-label="ai_model_label" aria-label="模型">
+              <option value="agnes-image-2.1-flash">2.1 Flash</option>
+              <option value="agnes-image-2.0-flash">2.0 Flash</option>
+            </select>
+          </div>
+
+          <textarea id="aiPromptInput" class="ai-prompt" rows="3" data-i18n-placeholder="ai_prompt_placeholder" placeholder="比如：一朵可爱的小花，保留原始形状，变成精致插画"></textarea>
+
+          <div class="ai-controls">
+            <button id="aiGenerateButton" class="tool-button primary" type="button" data-i18n="ai_generate">AI 生成</button>
+            <button id="aiDownloadButton" class="tool-button" type="button" disabled data-i18n="ai_download">下载结果</button>
+          </div>
+
+          <div class="ai-result-wrap">
+            <img id="aiResultImage" class="ai-result" alt="AI 生成结果">
+            <div id="aiResultLoading" class="ai-result-loading" aria-live="polite" aria-hidden="true">
+              <span class="ai-loader" aria-hidden="true"></span>
+              <span data-i18n="ai_result_loading">正在生成图片</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" integrity="sha384-q1KhAZhJcJXr3zfC3Tz07pBqQSabwFIZhXlmlUAB8s0zk4ETWERkIKGBCFQ5Jc3e" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" integrity="sha384-oHwoZ9HyKv5ark5VOH+XWdbNfmhYtptAOBuV8plz6mAfXvTA6d8fULuYllWouEK2" crossorigin="anonymous"></script>
+    <script src="/i18n.js"></script>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
