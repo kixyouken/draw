@@ -200,7 +200,8 @@ input {
 .camera-preview {
   position: absolute;
   z-index: 4;
-  right: 14px;
+  left: 14px;
+  right: auto;
   bottom: 14px;
   width: min(220px, 28vw);
   aspect-ratio: 16 / 9;
@@ -251,7 +252,7 @@ input {
 .gesture-rail {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 10px;
   pointer-events: auto;
 }
@@ -364,12 +365,12 @@ input {
 .hud {
   position: absolute;
   z-index: 5;
-  left: 14px;
+  left: calc(42px + min(220px, 28vw));
   bottom: 14px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  max-width: min(620px, calc(100% - 28px));
+  max-width: min(620px, calc(100% - 70px - min(220px, 28vw)));
   padding: 9px 12px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 8px;
@@ -485,7 +486,15 @@ input {
   }
 
   .camera-preview {
-    width: min(170px, 42vw);
+    width: min(150px, 38vw);
+  }
+
+  .hud {
+    left: 10px;
+    right: 10px;
+    bottom: auto;
+    top: 10px;
+    max-width: none;
   }
 }
 
