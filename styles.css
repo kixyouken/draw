@@ -263,6 +263,9 @@ input {
 
 .gesture-rail-right {
   align-items: flex-end;
+  max-height: 100%;
+  overflow-y: auto;
+  padding-left: 12px;
 }
 
 .gesture-panel {
@@ -542,11 +545,9 @@ input {
 }
 
 .ai-panel {
-  position: absolute;
-  z-index: 4;
-  top: 14px;
-  right: 218px;
-  width: min(360px, calc(100% - 28px));
+  position: relative;
+  z-index: 1;
+  width: min(360px, calc(100vw - 260px));
   display: grid;
   gap: 10px;
   padding: 12px;
@@ -678,14 +679,9 @@ input {
 
 @media (max-width: 860px) {
   .ai-panel {
-    position: absolute;
-    top: auto;
-    right: 10px;
-    bottom: 82px;
-    left: 10px;
-    width: auto;
-    max-height: min(46dvh, 420px);
-    overflow: auto;
+    width: min(320px, calc(100vw - 104px));
+    max-height: min(58dvh, 420px);
+    overflow-y: auto;
   }
 
   .ai-result {
