@@ -39,6 +39,7 @@ const getLanguage = window.getLanguage;
   const aiResultWrap = document.querySelector(".ai-result-wrap");
   const aiResultLoading = document.querySelector("#aiResultLoading");
   const aiStatus = document.querySelector("#aiStatus");
+  const gestureToolbar = document.querySelector(".gesture-toolbar");
   const gestureAiStyleButton = document.querySelector("#gestureAiStyleButton");
   const gestureAiSizeButton = document.querySelector("#gestureAiSizeButton");
   const gestureAiModelButton = document.querySelector("#gestureAiModelButton");
@@ -331,6 +332,7 @@ const getLanguage = window.getLanguage;
       lastPoint = null;
       lastPanPoint = null;
       setHoveredGestureTool(null);
+      gestureToolbar?.classList.remove("is-drawing");
       gestureOverlay.draw(null, null, null);
       setStatus("put_hand", "ready");
       return;
@@ -345,7 +347,13 @@ const getLanguage = window.getLanguage;
     const openPalm = isOpenPalm(landmarks);
     const canDraw = isPinching && !openPalm && hasStableDrawingLandmarks(landmarks);
     const isPanning = openPalm;
-    const tool = findGestureToolAt(indexPoint);
+    const canUseGestureTools = !isPinching && !isPanning;
+    const tool = canUseGestureTools ? findGestureToolAt(indexPoint) : null;
+
+    gestureToolbar?.classList.toggle("is-drawing", isPinching && !openPalm);
+    if (!canUseGestureTools) {
+      setHoveredGestureTool(null);
+    }
 
     setHoveredGestureTool(tool);
     gestureOverlay.draw(landmarks, indexPoint, {

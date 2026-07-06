@@ -240,16 +240,28 @@ input {
 .gesture-toolbar {
   position: absolute;
   z-index: 3;
-  top: 14px;
-  left: 50%;
-  width: min(1120px, calc(100% - 28px));
-  justify-content: center;
+  inset: 14px;
+  justify-content: space-between;
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  gap: clamp(12px, 3vw, 28px);
+  pointer-events: none;
+}
+
+.gesture-rail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   gap: 10px;
-  flex-wrap: wrap;
-  transform: translateX(-50%);
   pointer-events: auto;
+}
+
+.gesture-rail-left {
+  align-items: flex-start;
+}
+
+.gesture-rail-right {
+  align-items: flex-end;
 }
 
 .gesture-panel {
@@ -261,6 +273,15 @@ input {
   border-radius: 8px;
   background: rgba(17, 24, 39, 0.72);
   backdrop-filter: blur(10px);
+}
+
+.gesture-rail .gesture-panel {
+  max-width: 164px;
+  flex-wrap: wrap;
+}
+
+.gesture-rail-right .gesture-panel {
+  max-width: 188px;
 }
 
 .gesture-tool {
@@ -291,7 +312,8 @@ input {
 }
 
 .gesture-button.compact {
-  max-width: 132px;
+  width: 100%;
+  max-width: 164px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -308,6 +330,14 @@ input {
 
 .gesture-button.danger {
   color: #fecaca;
+}
+
+.gesture-toolbar.is-drawing .gesture-tool {
+  opacity: 0.42;
+}
+
+.gesture-toolbar.is-drawing .gesture-rail {
+  pointer-events: none;
 }
 
 .gesture-hover {
@@ -415,13 +445,43 @@ input {
   }
 
   .gesture-toolbar {
-    top: 12px;
-    align-items: center;
+    inset: 10px;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .gesture-rail {
+    gap: 8px;
   }
 
   .gesture-panel {
-    max-width: 100%;
-    overflow-x: auto;
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .gesture-rail .gesture-panel,
+  .gesture-rail-right .gesture-panel {
+    max-width: 64px;
+  }
+
+  .gesture-tool {
+    min-width: 44px;
+    min-height: 42px;
+  }
+
+  .gesture-tool.swatch {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    min-height: 42px;
+  }
+
+  .gesture-button {
+    padding: 0 7px;
+  }
+
+  .gesture-button.compact {
+    max-width: 50px;
   }
 
   .camera-preview {
@@ -475,8 +535,8 @@ input {
 .ai-panel {
   position: absolute;
   z-index: 4;
-  top: 92px;
-  right: 14px;
+  top: 14px;
+  right: 218px;
   width: min(360px, calc(100% - 28px));
   display: grid;
   gap: 10px;

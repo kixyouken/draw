@@ -61,31 +61,35 @@
         </div>
 
         <div class="gesture-toolbar" aria-label="手势工具栏">
-          <div class="gesture-panel color-pad">
-            <button class="gesture-tool swatch active" type="button" data-gesture-action="color" data-color="#111827" style="--swatch:#111827" aria-label="黑色"></button>
-            <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#e11d48" style="--swatch:#e11d48" aria-label="玫红"></button>
-            <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#f59e0b" style="--swatch:#f59e0b" aria-label="琥珀"></button>
-            <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#10b981" style="--swatch:#10b981" aria-label="绿色"></button>
-            <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#2563eb" style="--swatch:#2563eb" aria-label="蓝色"></button>
+          <div class="gesture-rail gesture-rail-left" aria-label="画笔工具">
+            <div class="gesture-panel color-pad">
+              <button class="gesture-tool swatch active" type="button" data-gesture-action="color" data-color="#111827" style="--swatch:#111827" aria-label="黑色"></button>
+              <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#e11d48" style="--swatch:#e11d48" aria-label="玫红"></button>
+              <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#f59e0b" style="--swatch:#f59e0b" aria-label="琥珀"></button>
+              <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#10b981" style="--swatch:#10b981" aria-label="绿色"></button>
+              <button class="gesture-tool swatch" type="button" data-gesture-action="color" data-color="#2563eb" style="--swatch:#2563eb" aria-label="蓝色"></button>
+            </div>
+
+            <div class="gesture-panel">
+              <button class="gesture-tool gesture-button active" type="button" data-gesture-action="size" data-size="8" data-i18n="thin">细</button>
+              <button class="gesture-tool gesture-button" type="button" data-gesture-action="size" data-size="24" data-i18n="thick">粗</button>
+            </div>
+
+            <div class="gesture-panel">
+              <button class="gesture-tool gesture-button" type="button" data-gesture-action="eraser" data-i18n="eraser">橡皮</button>
+              <button class="gesture-tool gesture-button" type="button" data-gesture-action="undo" data-i18n="undo">撤销</button>
+              <button class="gesture-tool gesture-button danger" type="button" data-gesture-action="clear" data-i18n="clear">清空</button>
+              <button class="gesture-tool gesture-button" type="button" data-gesture-action="save" data-i18n="save">保存</button>
+            </div>
           </div>
 
-          <div class="gesture-panel">
-            <button class="gesture-tool gesture-button active" type="button" data-gesture-action="size" data-size="8" data-i18n="thin">细</button>
-            <button class="gesture-tool gesture-button" type="button" data-gesture-action="size" data-size="24" data-i18n="thick">粗</button>
-          </div>
-
-          <div class="gesture-panel">
-            <button class="gesture-tool gesture-button" type="button" data-gesture-action="eraser" data-i18n="eraser">橡皮</button>
-            <button class="gesture-tool gesture-button" type="button" data-gesture-action="undo" data-i18n="undo">撤销</button>
-            <button class="gesture-tool gesture-button danger" type="button" data-gesture-action="clear" data-i18n="clear">清空</button>
-            <button class="gesture-tool gesture-button" type="button" data-gesture-action="save" data-i18n="save">保存</button>
-          </div>
-
-          <div class="gesture-panel gesture-ai-panel">
-            <button id="gestureAiStyleButton" class="gesture-tool gesture-button compact" type="button" data-gesture-action="ai-style">风格</button>
-            <button id="gestureAiSizeButton" class="gesture-tool gesture-button compact" type="button" data-gesture-action="ai-size">尺寸</button>
-            <button id="gestureAiModelButton" class="gesture-tool gesture-button compact" type="button" data-gesture-action="ai-model">模型</button>
-            <button id="gestureAiGenerateButton" class="gesture-tool gesture-button primary" type="button" data-gesture-action="ai-generate">AI 生成</button>
+          <div class="gesture-rail gesture-rail-right" aria-label="AI 生成工具">
+            <div class="gesture-panel gesture-ai-panel">
+              <button id="gestureAiStyleButton" class="gesture-tool gesture-button compact" type="button" data-gesture-action="ai-style">风格</button>
+              <button id="gestureAiSizeButton" class="gesture-tool gesture-button compact" type="button" data-gesture-action="ai-size">尺寸</button>
+              <button id="gestureAiModelButton" class="gesture-tool gesture-button compact" type="button" data-gesture-action="ai-model">模型</button>
+              <button id="gestureAiGenerateButton" class="gesture-tool gesture-button primary" type="button" data-gesture-action="ai-generate">AI 生成</button>
+            </div>
           </div>
         </div>
 
