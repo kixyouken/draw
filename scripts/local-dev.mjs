@@ -5,9 +5,6 @@ import { fileURLToPath } from "node:url";
 
 import generateImage from "../api/generate-image.js";
 import generateImageStatus from "../api/generate-image/status.js";
-import roomJoin from "../api/room/join.js";
-import roomAction from "../api/room/action.js";
-import roomEvents from "../api/room/events.js";
 
 const root = join(fileURLToPath(new URL("..", import.meta.url)));
 const port = Number(process.env.PORT || 3025);
@@ -15,9 +12,6 @@ const port = Number(process.env.PORT || 3025);
 const apiRoutes = new Map([
   ["/api/generate-image", generateImage],
   ["/api/generate-image/status", generateImageStatus],
-  ["/api/room/join", roomJoin],
-  ["/api/room/action", roomAction],
-  ["/api/room/events", roomEvents],
 ]);
 
 const contentTypes = {

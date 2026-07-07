@@ -528,22 +528,6 @@ input {
   border: 1px solid var(--line);
 }
 
-#roomInput.field-input {
-  min-width: 120px;
-}
-
-#nameInput.field-input {
-  min-width: 100px;
-}
-
-.members-list {
-  margin-left: 12px;
-  display: inline-block;
-  max-width: 320px;
-  overflow: auto;
-  color: #ffffff;
-}
-
 .ai-panel {
   position: relative;
   z-index: 1;

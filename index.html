@@ -21,12 +21,6 @@
 
         <button id="cameraButton" class="tool-button primary" type="button" data-i18n="camera_button">开启摄像头</button>
 
-        <div class="tool-group" style="gap:8px;">
-          <input id="roomInput" class="field-input" type="text" data-i18n-placeholder="room_placeholder" placeholder="房间名 (默认 lobby)">
-          <input id="nameInput" class="field-input" type="text" data-i18n-placeholder="name_placeholder" placeholder="昵称 (可选)">
-          <button id="joinRoomButton" class="tool-button" type="button" data-i18n="join_room_button">加入房间</button>
-        </div>
-
         <div class="tool-group color-group" aria-label="颜色">
           <button class="swatch active" type="button" data-color="#111827" style="--swatch:#111827" aria-label="黑色"></button>
           <button class="swatch" type="button" data-color="#e11d48" style="--swatch:#e11d48" aria-label="玫红"></button>
@@ -139,7 +133,6 @@
         <div class="hud" aria-live="polite">
           <span id="statusDot" class="status-dot"></span>
           <span id="statusText">先开启摄像头；食指停在工具上一会儿会自动选择，捏合画画，张开手掌拖动画布</span>
-          <div id="membersList" class="members-list"></div>
         </div>
       </section>
     </main>

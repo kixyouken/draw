@@ -4,9 +4,6 @@ const translations = {
     // Toolbar
     title: "隔空手势画板",
     camera_button: "开启摄像头",
-    room_placeholder: "房间名 (默认 lobby)",
-    name_placeholder: "昵称 (可选)",
-    join_room_button: "加入房间",
     color_label: "颜色",
     black: "黑色",
     pink: "玫红",
@@ -63,9 +60,6 @@ const translations = {
     ai_generation_failed: "AI 生成失败，请检查 API Key 或稍后重试",
     ai_empty_canvas: "请先画一点内容，再使用 AI 生成",
     camera_error: "无法开启摄像头，请检查浏览器权限或使用 localhost 打开",
-    room_joined: "已加入房间",
-    hud_members: "房间成员",
-    hud_empty: "(空)",
 
     // Gesture actions
     gesture_label: "手势工具栏",
@@ -76,9 +70,6 @@ const translations = {
     // Toolbar
     title: "エアジェスチャー画板",
     camera_button: "カメラを開く",
-    room_placeholder: "ルーム名 (デフォルト lobby)",
-    name_placeholder: "ニックネーム (オプション)",
-    join_room_button: "ルームに参加",
     color_label: "色",
     black: "黒",
     pink: "ピンク",
@@ -135,9 +126,6 @@ const translations = {
     ai_generation_failed: "AI生成に失敗しました。API Keyを確認するか、しばらくしてから再試行してください。",
     ai_empty_canvas: "先に少し描いてからAI生成を使ってください",
     camera_error: "カメラを開くことができません。ブラウザのアクセス許可を確認するか、localhostを使用してください。",
-    room_joined: "ルームに参加しました",
-    hud_members: "ルームメンバー",
-    hud_empty: "(空)",
 
     // Gesture actions
     gesture_label: "ジェスチャーツールバー",

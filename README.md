@@ -8,11 +8,11 @@
 - 颜色、粗细、橡皮、撤销、清空、保存到本地
 - 中文 / 日文切换
 - Agnes AI 图生图
-- 房间 UI 和同步逻辑
 
 移除功能：
 
 - AI 生成图和原始画布自动保存到服务器
+- 多人房间 UI、同步 API 和 Redis 存储逻辑
 
 ## 本地运行
 
@@ -48,22 +48,4 @@ npx vercel
 
 ```dotenv
 AGNES_API_KEY="你的 Agnes API Key"
-```
-
-## 多人房间
-
-Vercel Serverless 不能直接运行原 Flask-SocketIO 的常驻 WebSocket 服务。这个版本默认支持同一浏览器多标签页同步。
-
-如果要部署后跨设备同步，在 Vercel 项目里添加 KV/Upstash Redis，并设置以下环境变量：
-
-```dotenv
-KV_REST_API_URL="..."
-KV_REST_API_TOKEN="..."
-```
-
-也兼容 Upstash 原生变量名：
-
-```dotenv
-UPSTASH_REDIS_REST_URL="..."
-UPSTASH_REDIS_REST_TOKEN="..."
 ```

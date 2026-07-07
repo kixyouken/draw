@@ -11,7 +11,6 @@ import {
 import { createAiImageController } from "./js/ai-image.js";
 import { createCanvasController } from "./js/canvas.js";
 import { createGestureOverlay } from "./js/gesture-overlay.js";
-import { createRoomController } from "./js/room.js";
 
 const t = window.t;
 const setLanguage = window.setLanguage;
@@ -46,10 +45,6 @@ const getLanguage = window.getLanguage;
   const gestureAiGenerateButton = document.querySelector("#gestureAiGenerateButton");
   const statusDot = document.querySelector("#statusDot");
   const statusText = document.querySelector("#statusText");
-  const roomInput = document.getElementById("roomInput");
-  const nameInput = document.getElementById("nameInput");
-  const joinRoomButton = document.getElementById("joinRoomButton");
-  const membersList = document.getElementById("membersList");
   const langZhBtn = document.getElementById("langZhBtn");
   const langJaBtn = document.getElementById("langJaBtn");
 
@@ -67,7 +62,6 @@ const getLanguage = window.getLanguage;
   let aiGenerating = false;
 
   const actionHistory = [];
-  let roomController = null;
   const canvas = createCanvasController({
     drawingCanvas,
     gestureCanvas,
@@ -85,7 +79,6 @@ const getLanguage = window.getLanguage;
   function clearDrawing() {
     canvas.clear();
     actionHistory.length = 0;
-    roomController?.sendAction({ type: "clear_canvas" });
     resetDrawingGestureState();
   }
 
@@ -100,7 +93,6 @@ const getLanguage = window.getLanguage;
     if (actionHistory.length) {
       actionHistory.pop();
       canvas.redrawHistory();
-      roomController?.sendAction({ type: "undo" });
     }
   }
 
@@ -116,18 +108,6 @@ const getLanguage = window.getLanguage;
     aiStatus.textContent = t(messageOrKey);
     aiStatus.className = "ai-status" + (state ? " " + state : "");
   }
-
-  roomController = createRoomController({
-    actionHistory,
-    canvas,
-    membersList,
-    roomInput,
-    nameInput,
-    joinRoomButton,
-    setStatus,
-    t,
-  });
-  roomController.bindEvents();
 
   function setHoveredGestureTool(tool) {
     if (hoveredGestureTool === tool) return;
@@ -408,7 +388,6 @@ const getLanguage = window.getLanguage;
         };
         canvas.drawLine(lastPoint, worldPoint, action);
         actionHistory.push(action);
-        roomController?.sendAction(action);
       }
       lastPoint = worldPoint;
       setStatus(erasing ? "erasing" : "drawing", "drawing");
